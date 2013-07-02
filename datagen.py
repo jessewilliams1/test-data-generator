@@ -6,40 +6,39 @@ run = True
 csvWriter = csv.writer(open('output.csv', 'wb'))
 
 while run:
-    fieldCountInput = raw_input('\nNumber of columns:\n')
-    fieldCount = int(fieldCountInput)
-    fieldNameList = []
-    fieldPosition = 1
+    columnCountInput = raw_input('\nNumber of columns:\n')
+    columnCount = int(columnCountInput)
+    columnNameList = []
+    listPosition = 1
 
     #Iterates through the number of columns to get the names for each
-    while fieldCount > 0:
-        fieldNameInput = raw_input('\nName for column ' + str(fieldPosition) + ':\n')
-        fieldCount -= 1
-        fieldPosition += 1
-        fieldNameList.append(fieldNameInput)
+    while columnCount > 0:
+        columnNameInput = raw_input('\nName for column ' + str(listPosition) + ':\n')
+        columnCount -= 1
+        listPosition += 1
+        columnNameList.append(columnNameInput)
 
+    rowCountInput = raw_input('\nNumber of rows to be generated: \n')
+    rowCount = int(rowCountInput)
 
-    lineCountInput = raw_input('\nNumber of rows to be generated: \n')
-    lineCount = int(lineCountInput)
+    rowNumber = 1 # Incremented value that is stringed and added to the end of each column
 
-    rowCount = 1 # Incremented value that is stringed and added to the end of each column
+    singleRowList = []
 
-    singleLineList = []
+    while rowCount > 0:
+        for x in columnNameList:
+            outputRow = x + str(rowNumber)
+            #print outputRow, # Comment this line out to ommit visual display
+            singleRowList.append(outputRow)
 
-    while lineCount > 0:
-        for x in fieldNameList:
-            outputLine = x + str(rowCount)
-            #print outputLine, # Comment this line out to ommit visual display
-            singleLineList.append(outputLine)
-
-        csvWriter.writerow(singleLineList)
-        singleLineList = [] # Sets the list top blank, for the next row to be written
+        csvWriter.writerow(singleRowList)
+        singleRowList = [] # Sets the list top blank, for the next row to be written
         #print # Blank line, to seperate between iterations (commend out to ommit)
-        rowCount += 1
-        lineCount -= 1
+        rowNumber += 1
+        rowCount -= 1
         
     # User prompt to quit or do another
-    runInput = raw_input('\nGeneration complete, do another? (y or n)\n')
+    runInput = raw_input('\nGeneration complete! Do another? (y or n)\n')
 
     if runInput == 'y':
         run = True
